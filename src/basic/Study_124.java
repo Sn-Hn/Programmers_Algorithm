@@ -22,14 +22,8 @@ public class Study_124 {
 				num = 4;
 				n -=1;
 			}
-			
 			answer = num + answer;
-			
 		}
-			
-	
-		
-		
 		return answer;
 	}
 	

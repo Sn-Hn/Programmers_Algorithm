@@ -1,5 +1,7 @@
 package Winter_Coding;
 
+import java.util.ArrayList;
+
 /*
 선행 스킬이란 어떤 스킬을 배우기 전에 먼저 배워야 하는 스킬을 뜻합니다.
 
@@ -30,14 +32,29 @@ public class skill_Trees {
 	public int solution(String skill, String[] skill_trees) {
         int answer = 0;
         String str = "";
-        for(int i = 0; i < skill_trees.length; i++) {
+        int index = 0;
+        
+        for(int i = 0; i < skill_trees.length; i++) {		// 스킬트리가 들어있는 배열의 수만큼 반복
         	str = skill_trees[i];
-        	for(int j = 0; j < skill.length(); j++) {
+        	boolean flag = true;
+        	int skillIndex = 0;			// skill은 무조건 0번 인덱스의 스킬을 배워야만 다음 스킬을 배울 수 있기 때문에  skillIndex = 0 으로 시작
+        	for(int j = 0; j < str.length(); j++) {		// str의 크기만큼 반복
+        		index = skill.indexOf(str.charAt(j));	// str의 j번째 문자 -> skill의 인덱스 번호 -> index
+//        		System.out.println("str : " + str + " index : " + index + " nextIndex : " + nextIndex);
+        		if(skillIndex < index) {		// skill의 인덱스가 아닌 문자는 -1이 리턴되고, skill의 인덱스인 경우 0 부터 skill.length만큼의 수가 나온다.
+        			flag = false;			// 즉, skill의 인덱스가 아닌 문자는 넘겨버린다.
+        			break;
+        		}else if(skillIndex == index) {	// skillIndex와 같다면
+        			skillIndex++;				// skill의 인덱스를 검사했으니 다음 인덱스를 검사하기 위해 ++를 한다.
+        		}							
         		
+        	}
+        	if(flag ) {
+        		answer++;
         	}
         	
         }
-
+        
         return answer;
     }
 	
@@ -46,6 +63,8 @@ public class skill_Trees {
 		skill_Trees st = new skill_Trees();
 		String skill = "CBD";
 		String[] skill_trees = {"BACDE", "CBADF", "AECB", "BDA"};
+		
+		
 		
 		System.out.println(st.solution(skill, skill_trees));
 		
