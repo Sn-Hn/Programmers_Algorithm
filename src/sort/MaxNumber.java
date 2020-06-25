@@ -3,6 +3,8 @@ package sort;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /*
 
@@ -27,40 +29,69 @@ numbers	return
 
 public class MaxNumber {
 	public String solution(int[] numbers) {
-        String answer = "";
-        String front = "";
-        int len = numbers.length;
-//        int[] num = new int[len];
-//        ArrayList<Integer> num = new ArrayList<Integer>();
-        Integer[] num = new Integer[len];
-        
-        for(int i = 0; i < len; i++) {
-        	if(numbers[i] >= 10) {
-        		front = Integer.toString(numbers[i]);
-//        		num.add(Character.getNumericValue(front.charAt(0)));
-        		num[i] = Character.getNumericValue(front.charAt(0));
-        	}else {
-        		num[i] = numbers[i];
-        	}
-        }
-        Arrays.sort(num, Collections.reverseOrder());
-        for(int i : num) {
-        	System.out.println(i);
-        }
-//        System.out.println(num);
-        return answer;
-    }
-	
-	
+		String answer = "";
+		int len = numbers.length;
+		String[] num = new String[len];
+		for (int i = 0; i < len; i++) {
+			num[i] = Integer.toString(numbers[i]);
+
+		}
+		// 람다식 (매개변수) -> 함수
+		// (o1, o2)를 인자로 받아 compareTo 메소드 실행
+//		Arrays.sort(num, (s1, s2) -> (s2 + s1).compareTo(s1 + s2));
+		Arrays.sort(num, new Comparator<String>() {
+			@Override
+			public int compare(String s1, String s2) {
+				// TODO Auto-generated method stub
+				// 기준값.compareTo(비교대상) -> 동일 하면 0, 기준 값이 비교 대상보다 작으면 -1, 기준 값이 비교 대상보다 큰 경우 1
+				return (s2 + s1).compareTo(s1 + s2);
+
+			}
+
+		});
+		for (int i = 0; i < len; i++) {
+			answer += num[i];
+		}
+		System.out.println(answer);
+		return answer;
+	}
+
+	// 다른 사람 풀이
+	public String solution1(int[] numbers) {
+		String answer = "";
+
+		List<Integer> list = new ArrayList<>(); // list형 배열 선언
+		for (int i = 0; i < numbers.length; i++) { // list에 numbers 삽입
+			list.add(numbers[i]);
+		}
+		// Collections 정렬은 사용자 지정 정렬 방식을 사용할 수 있음 (람다식을 이용)
+		Collections.sort(list, (a, b) -> { 		// (a, b)를 매개변수로 받아 함수 로 보냄
+			// 문자열 as 에 a, 문자열 bs에 b를 대입
+			String as = String.valueOf(a), bs = String.valueOf(b);
+			
+			// Integer형으로 변환하여 compare 수행 -> 문자열 (as+bs)와 (bs+as)를 Integer형으로 변환하여 비교하여 리턴
+			// 리턴값에 - 를 준 이유는 내림차순으로 정렬하기 위함
+			// 기준값이 비교값과 자리가 바뀌었다면 - 를 쓰지 않아도 됨
+//			return Integer.compare(Integer.parseInt(bs + as), Integer.parseInt(as + bs));
+			return -Integer.compare(Integer.parseInt(as + bs), Integer.parseInt(bs + as));
+			
+		});
+		StringBuilder sb = new StringBuilder();
+		for (Integer i : list) {
+			sb.append(i);
+		}
+		answer = sb.toString();
+		if (answer.charAt(0) == '0') {
+			return "0";
+		} else {
+			return answer;
+		}
+	}
+
 	public static void main(String[] args) {
-		int[] numbers = {6, 10, 2, 12};
-		
-		System.out.println(new MaxNumber().solution(numbers));
-		
-		
+		int[] numbers = { 1, 129, 2, 121, 11 };
+
+		System.out.println(new MaxNumber().solution1(numbers));
+
 	}
 }
-
-
-
-
