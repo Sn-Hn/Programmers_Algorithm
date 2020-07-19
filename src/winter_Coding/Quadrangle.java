@@ -1,5 +1,7 @@
 package winter_Coding;
 
+import java.math.BigInteger;
+
 /*
 
 가로 길이가 Wcm, 세로 길이가 Hcm인 직사각형 종이가 있습니다. 
@@ -26,33 +28,35 @@ public class Quadrangle {
 
 	public static void main(String[] args) {
 
-		long answer = solution(1, 3);
+		long answer = solution(151515152, 63462364);
 
 		System.out.println(answer);
 
 	}// main
-
+	
+	// 감탄..
 	public static long solution(int w, int h) {
 
-		long wl = Long.parseLong(String.valueOf(w));
-		long hl = Long.parseLong(String.valueOf(h));
+		long totalCount = (long) w * (long) h;
+        long diagonalCount = w + h - BigInteger.valueOf(w).gcd(BigInteger.valueOf(h)).longValue();
 
-		return (wl * hl) - (wl + hl - gcd(wl, hl));
+        return totalCount - diagonalCount;
 	}
+	
+	// 유클리드 호제법
+	public long solution1(int w,int h) {
+        long min=Math.min(w, h);
+        long max=Math.max(w, h);
+        long remain=1;
+        while(remain>0) {
+            remain=max%min;
+            max=min;
+            min=remain;
+        }
+        long answer = (long)w*(long)h-max*(w/max + h/max -1);
+        return answer;
+    }
 
-	private static long gcd(long w, long h) {
-
-		long small, big;
-
-		big = w >= h ? w : h;
-		small = w < h ? w : h;
-
-		while (small != 0) {
-			long nmg = big % small;
-			big = small;
-			small = nmg;
-		}
-		return big;
-	}
+	
 
 }

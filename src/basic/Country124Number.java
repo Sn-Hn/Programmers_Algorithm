@@ -10,7 +10,7 @@ package basic;
 1, 2, 4, 11, 12, 14, 21, 22, 24, 41, 42, 44, 111, 112, 114, 121, 122, 124, 141, 142, 144, 211, ...		-> 124 진법(?)
 */
 
-public class Study_124 {
+public class Country124Number {
 	public String solution(int n) {
 		String answer = "";
 		int num = 0;
@@ -28,8 +28,8 @@ public class Study_124 {
 	}
 	
 	public static void main(String[] args) {
-		Study_124 st = new Study_124();
-		int n = 20;			// answer --> 41
+		Country124Number st = new Country124Number();
+		int n = 10;			// answer --> 41
 		
 		System.out.println(st.solution(n));	
 	}
