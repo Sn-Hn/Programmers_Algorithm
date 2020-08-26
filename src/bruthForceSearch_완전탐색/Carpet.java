@@ -20,25 +20,37 @@ brown	yellow	return
 10		2		[4, 3]
 8		1		[3, 3]
 24		24		[8, 6]
+
 */
 
 public class Carpet {
 	public int[] solution(int brown, int yellow) {
-		int width = 0;
-		int height = 0;
-
+		int width = 0;		// yellow 의 가로길이
+		int height = 0;		// yellow 의 세로길이
+		
+		
 		for (int i = 1; i <= yellow / 2 + 1; i++) {
 			width = i;
-			height = (yellow % i == 0) ? yellow / i : yellow / i + 1;
-
+			/*  width = i일 때, 24 = i*height -> height = 24/i
+			 *  Java에서 소수점까지나오지 않으므로 나머지가 없으면 그대로 24/i
+			 *  나머지가 있다면 continue;
+			 */
+//			height = (yellow % i == 0) ? yellow / i : yellow / i + 1;	나머지가 0으로 떨어지지 않는다면 그냥 진행해도 무방
+			if(yellow % i == 0) height = yellow/i;
+			
+			// yellow = (전체 width-2) * (전체 height -2)
+			// brown = 전체 width * 전체 height - yellow
+			
+			// brown = yellow width * 2 + yellow height * 2 + 4
 			if (2 * width + 2 * height + 4 == brown)
 				break;
 
 		}
-
+		/* 가로는 세로와 같거나 더 커야 하기 때문에 가로의 위치에 큰 수를 넣음. 세로에는 작은 수를 넣음 */
 		int[] answer = { Math.max(width, height) + 2, Math.min(width, height) + 2 };
 
 		return answer;
+		
 	}
 	
 	public static void main(String[] args) {
