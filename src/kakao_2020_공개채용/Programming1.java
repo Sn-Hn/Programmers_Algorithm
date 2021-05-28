@@ -137,7 +137,9 @@ public class Programming1 {
 			answer = answer.substring(1);				
 		}
 		
-		if(!answer.isEmpty() && answer.charAt(answer.length()-1) == '.') answer = answer.substring(0, answer.length()-1);
+		if(!answer.isEmpty() && answer.charAt(answer.length()-1) == '.') {
+			answer = answer.substring(0, answer.length()-1);
+		}
 		
 		// 5단계
 		// 빈 문자열이면 a대입

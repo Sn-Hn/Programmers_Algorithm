@@ -1,6 +1,5 @@
 package kakao_2020_공개채용;
 
-import java.awt.datatransfer.StringSelection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
